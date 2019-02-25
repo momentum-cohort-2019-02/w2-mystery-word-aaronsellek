@@ -103,7 +103,7 @@ while game_again:
         print("no one will be harmed if you lose!")
         print("What level of difficulty would you like to play on?")
         #Lets user pick difficulty
-        difficulty = input("(easy, normal, hard): ").lower()
+        difficulty = input("(easy, normal, hard): ")
         if difficulty.isalpha() and difficulty == 'easy' or difficulty == 'normal' or difficulty == 'hard':
             #Line above this comment calls back to previous function depending on what user inputs and selects difficulty based on what is inputted.
             with open("words.txt") as file:
@@ -132,4 +132,20 @@ while game_again:
                         if guess_right(your_word, guess, guesses) == True:
                             guesses.append(guess)
                             #If user guesses right add guessed letter to guesses 
-                        
+                        print (f"You only have {guesses_left} left.")
+                        updated_word = final_hidden_word(hidden_word, your_word, guess)
+                        display_word = show_mystery_word(updated_word)
+                        print (" ".join(display_word))
+                    else:
+                        print ("Stop cheating. Only enter one letter at a time.")
+            game_on = False
+        else:
+            print ("What difficulty?.")
+    if guesses_left != 0 and your_word == display_word:        
+        print ("Good work, you saved a stick figures life!")           
+        game_again = continue_play()
+    if guesses_left == 0:
+        print ("You lost! You are hated by the whole stick figure community.")
+        print (f"This was the word you were too dumb to guess: {your_word.upper()}")
+        game_again = continue_play()
+    
